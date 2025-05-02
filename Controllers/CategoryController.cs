@@ -38,7 +38,7 @@ namespace Blog.Controllers
             }
             catch (DbUpdateException)
             {
-                return StatusCode(500, new ResultViewModel<Category>("05X07 - Não foi possível listar a categoria"));
+                return StatusCode(400, new ResultViewModel<Category>("05X07 - Não foi possível listar a categoria"));
             }
             catch (Exception)
             {
@@ -68,7 +68,7 @@ namespace Blog.Controllers
             }
             catch (DbUpdateException)
             {
-                return StatusCode(500, new ResultViewModel<Category>("05X09 - Não foi possível incluir a categoria"));
+                return StatusCode(400, new ResultViewModel<Category>("05X09 - Não foi possível incluir a categoria"));
             }
             catch (Exception)
             {
@@ -95,7 +95,7 @@ namespace Blog.Controllers
             }
             catch (DbUpdateException)
             {
-                return StatusCode(500, new ResultViewModel<Category>("05X08 - Não foi possível alterar a categoria"));
+                return StatusCode(400, new ResultViewModel<Category>("05X08 - Não foi possível alterar a categoria"));
             }
             catch (Exception)
             {
@@ -119,7 +119,7 @@ namespace Blog.Controllers
             }
             catch (DbUpdateException)
             {
-                return StatusCode(500, new ResultViewModel<Category>("05X06 - Não foi possível remover a categoria"));
+                return StatusCode(400, new ResultViewModel<Category>("05X06 - Não foi possível remover a categoria"));
             }
             catch (Exception)
             {
