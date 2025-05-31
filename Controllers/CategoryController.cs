@@ -2,8 +2,10 @@
 using Blog.Extensions;
 using Blog.Models;
 using Blog.ViewModel;
+using Blog.ViewModel.Categories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace Blog.Controllers
 {
@@ -12,12 +14,17 @@ namespace Blog.Controllers
     public class CategoryController : ControllerBase
     {
         [HttpGet("categories")]
-        public async Task<IActionResult> Get([FromServices] BlogDataContext context)
+        public IActionResult Get([FromServices] BlogDataContext context, [FromServices] IMemoryCache cache)
         {
             try
             {
-                var categories = await context.Categories.ToListAsync();
-                return Ok(new ResultViewModel<List<Category>>(categories));
+                var categories = cache.GetOrCreate("categoriesCache", async entry =>
+                {
+                    entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromHours(1);
+                    return await context.Categories.ToListAsync();
+                });
+
+                return Ok(new ResultViewModel<List<Category?>>(categories));
             }
             catch
             {

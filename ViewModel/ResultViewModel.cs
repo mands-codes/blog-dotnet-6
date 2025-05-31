@@ -1,7 +1,11 @@
-﻿namespace Blog.ViewModel
+﻿using Blog.Models;
+
+namespace Blog.ViewModel
 {
     public class ResultViewModel<T>
     {
+        private Task<List<Category>>? categories;
+
         public T Data { get; private set; }
         public List<string> Errors { get; private set; } = [];
 
@@ -24,6 +28,11 @@
         public ResultViewModel(List<string> errors)
         {
             Errors = errors;
+        }
+
+        public ResultViewModel(Task<List<Category>>? categories)
+        {
+            this.categories = categories;
         }
     }
 }
